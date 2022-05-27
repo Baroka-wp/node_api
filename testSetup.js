@@ -1,7 +1,0 @@
-/**
- *@jest-environment jsdom
- */
-
-beforeAll(() => {
-
-});

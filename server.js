@@ -1,23 +1,17 @@
-/* eslint import/no-extraneous-dependencies: ["error", {"peerDependencies": true}] */
-
 const express = require('express');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-
 const app = express();
-const config = require('./webpack.config.js');
+const studentsRoutes = require('./controllers/studentsController');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+require('./models/dbConfig.js');
 
-const compiler = webpack(config);
+//MiddleWare
+app.use(bodyParser.json());
+app.use(cors())
+app.use('/students', studentsRoutes)
 
-// Tell express to use the webpack-dev-middleware and use the webpack.config.js
-// configuration file as a base.
-app.use(
-  webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-  }),
-);
 
-// Serve the files on port 3000.
+// Serve the files on port 8080.
 app.listen(8080, () => {
-  // console.log('Listening on port 8080!\n');
+  console.log('Listening on port 8080!\n');
 });
